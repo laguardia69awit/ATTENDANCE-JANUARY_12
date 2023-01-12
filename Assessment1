@@ -1,0 +1,40 @@
+import java.io.File; // for reading text using files
+import java.io.IOException; //declared this because  it is thrown for inpupt-output operation, failed or interrupted
+import java.util.Scanner; // added a scanner for the user to input
+
+public class assessment1 {
+    public static void main(String[] args) throws Exception {
+
+        boolean WF = false; // declared a boolean for wordfo
+
+        try {
+            Scanner scanner = new Scanner(System.in); // declared "sc" as a variable for scanner
+            System.out.print("Input: "); // will accept any number and
+            String input = scanner.nextLine(); // will determine if the number is included in the text file or not
+            scanner.close(); // closing
+
+            // declared variable readerObj for file
+            File FiLereader = new File(
+                    "C:\\Users\\L O N O V O\\OneDrive\\Desktop\\Python\\attendance\\mondaycode\\LUISandMIGS\\LAGUARDIAandANDAYA\\New folder\\wildelyn\\Review_Exercies\\Easy\\src\\ass1.txt");
+            Scanner readeer = new Scanner(FiLereader);
+            while (readeer.hasNextLine()) { // read the output to loop
+                String data = readeer.nextLine();
+                if (data.equals(input)) {
+                    WF = true; // the word found for the data - true
+                }
+            }
+            readeer.close();
+
+            System.out.print("Output: ");
+            if (WF == true) { // IF THE USER INPUTED THE NUMBER THAT INCLUDE IN THE TEXTFILE THIS IS THE IF
+                              // AND
+                System.out.print("Found"); // WILL PRINT "Found"
+            } else { // else, if the number that inputed is not in the text file will
+                System.out.println("Not Found"); // print "Not Found"
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
