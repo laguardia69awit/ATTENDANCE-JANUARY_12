@@ -1,0 +1,101 @@
+import java.io.BufferedReader; // declared thisssssssssssssssssss
+import java.io.File; // to get file
+import java.io.FileReader; // reading files
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Assessment2 {
+    static boolean wordFound = false;
+    static String newWord = "";
+    static String filePath = "C:\\Users\\L O N O V O\\OneDrive\\Desktop\\Python\\attendance\\mondaycode\\LUISandMIGS\\LAGUARDIAandANDAYA\\Newfolder\\wildelyn\\Review_Exercies\\Easy\\ass2.txt";
+    static String input = "";
+
+    static void modifyFile(String filePath, String previousString, String newString, String input) {
+        File fileToBeModified = new File(filePath);
+        String previousWord = "";
+        BufferedReader reader = null;
+        FileWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(fileToBeModified));
+            String line = reader.readLine();
+
+            while (line != null) { // Reads all the lines of text file and writes it into previousWord
+                previousWord = previousWord + line + System.lineSeparator();
+                line = reader.readLine();
+            }
+
+            String newWord = previousWord.replaceAll(previousString, newString);
+            writer = new FileWriter(fileToBeModified); // Rewriting the input insiide the text file
+            writer.write(newWord);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close(); // Closing the resources
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static void finder(String filePath, String input) {
+        try {
+            File readerObj = new File(filePath);
+            Scanner Reader = new Scanner(readerObj);
+
+            while (Reader.hasNextLine()) { // Reads the file line by line
+                String data = Reader.nextLine();
+                if (data.equals(input)) {
+                    wordFound = true;
+                }
+            }
+            Reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+
+    static void output() {
+        try {
+            File readerObj = new File(filePath);
+            Scanner Reader = new Scanner(readerObj);
+
+            while (Reader.hasNextLine()) {
+                String data = Reader.nextLine();
+                System.out.println(data);
+            }
+            Reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Input: ");
+        String input = sc.nextLine();
+
+        finder(filePath, input); // Calls finder method
+
+        if (wordFound == true) {
+            System.out.print("New word: ");
+            String newWord = sc.nextLine();
+
+            modifyFile(filePath, input, newWord, input);
+
+            System.out.println("Output:");
+            output();
+        } else {
+            System.out.println("<invalid Text>\nOutput:");
+            output();
+        }
+        sc.close();
+    }
+}
